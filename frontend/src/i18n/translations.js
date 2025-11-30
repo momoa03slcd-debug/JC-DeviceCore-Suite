@@ -18,6 +18,12 @@ export const translations = {
       tryFree: 'Kostenlos testen',
       watchDemo: 'Demo ansehen',
     },
+    // 404 Page
+    notfound: {
+      title: 'Seite nicht gefunden',
+      description: 'Die gesuchte Seite existiert nicht oder wurde verschoben.',
+      goBack: 'Zurück',
+    },
     // Hero Section
     hero: {
       title: 'Transparente Geräteanalyse und Service-Workflows für Profis',
@@ -347,6 +353,12 @@ export const translations = {
       tryFree: 'Try Free',
       watchDemo: 'Watch Demo',
     },
+    // 404 Page
+    notfound: {
+      title: 'Page Not Found',
+      description: 'The page you\'re looking for doesn\'t exist or has been moved.',
+      goBack: 'Go Back',
+    },
     // Hero Section
     hero: {
       title: 'Transparent Device Analysis and Service Workflows for Professionals',
@@ -675,6 +687,12 @@ export const translations = {
       terms: 'الشروط',
       tryFree: 'جرب مجاناً',
       watchDemo: 'شاهد العرض',
+    },
+    // 404 Page
+    notfound: {
+      title: 'الصفحة غير موجودة',
+      description: 'الصفحة التي تبحث عنها غير موجودة أو تم نقلها.',
+      goBack: 'رجوع',
     },
     // Hero Section
     hero: {

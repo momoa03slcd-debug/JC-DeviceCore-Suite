@@ -12,13 +12,13 @@ const TermsPage = () => {
   return (
     <PublicLayout>
       {/* Hero */}
-      <section className="py-20 lg:py-28 gradient-hero">
+      <section data-testid="terms-hero" className="py-20 lg:py-28 gradient-hero">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <Badge variant="accent" className="mb-6">
+          <Badge data-testid="terms-badge" variant="accent" className="mb-6">
             <FileText className="w-3 h-3 mr-1" />
             {t.nav.terms}
           </Badge>
-          <h1 className="text-4xl sm:text-5xl font-display font-bold text-foreground mb-6">
+          <h1 data-testid="terms-title" className="text-4xl sm:text-5xl font-display font-bold text-foreground mb-6">
             {t.terms.title}
           </h1>
         </div>

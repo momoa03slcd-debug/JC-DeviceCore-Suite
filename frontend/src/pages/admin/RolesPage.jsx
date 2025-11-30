@@ -104,7 +104,7 @@ const RolesPage = () => {
       </div>
 
       {/* Roles Overview */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div data-testid="roles-overview" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         {roles.map((role) => {
           const Icon = role.icon;
           return (
@@ -115,9 +115,9 @@ const RolesPage = () => {
                     <Icon className="w-6 h-6" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-semibold text-foreground mb-1">{role.name}</h3>
-                    <p className="text-xs text-muted-foreground mb-2">{role.description}</p>
-                    <Badge variant="secondary">{role.users} users</Badge>
+                    <h3 data-testid={`role-name-${role.id}`} className="font-semibold text-foreground mb-1">{role.name}</h3>
+                    <p data-testid={`role-description-${role.id}`} className="text-xs text-muted-foreground mb-2">{role.description}</p>
+                    <Badge data-testid={`role-users-${role.id}`} variant="secondary">{role.users} users</Badge>
                   </div>
                 </div>
               </CardContent>
@@ -127,18 +127,18 @@ const RolesPage = () => {
       </div>
 
       {/* Permission Matrix */}
-      <Card className="border-border/50">
+      <Card data-testid="roles-permission-matrix" className="border-border/50">
         <CardHeader>
-          <CardTitle>Permission Matrix</CardTitle>
+          <CardTitle data-testid="permission-matrix-title">Permission Matrix</CardTitle>
           <CardDescription>Overview of permissions for each role</CardDescription>
         </CardHeader>
         <CardContent className="p-0 overflow-x-auto">
-          <Table>
+          <Table data-testid="permission-table">
             <TableHeader>
-              <TableRow>
+              <TableRow data-testid="permission-table-header">
                 <TableHead className="min-w-[200px]">Permission</TableHead>
                 {roles.map((role) => (
-                  <TableHead key={role.id} className="text-center min-w-[120px]">
+                  <TableHead key={role.id} data-testid={`permission-header-${role.id}`} className="text-center min-w-[120px]">
                     <div className="flex flex-col items-center gap-1">
                       <role.icon className="w-4 h-4" />
                       <span className="text-xs">{role.name.split(' ')[0]}</span>
@@ -147,28 +147,28 @@ const RolesPage = () => {
                 ))}
               </TableRow>
             </TableHeader>
-            <TableBody>
+            <TableBody data-testid="permission-table-body">
               {permissions.map((permission, pIndex) => {
                 const Icon = permission.icon;
                 return (
-                  <TableRow key={permission.name}>
-                    <TableCell>
+                  <TableRow key={permission.name} data-testid={`permission-row-${pIndex}`}>
+                    <TableCell data-testid={`permission-name-${pIndex}`}>
                       <div className="flex items-center gap-2">
                         <Icon className="w-4 h-4 text-muted-foreground" />
                         <span>{permission.name}</span>
                       </div>
                     </TableCell>
                     {roles.map((role) => (
-                      <TableCell key={role.id} className="text-center">
+                      <TableCell key={role.id} data-testid={`permission-cell-${role.id}-${pIndex}`} className="text-center">
                         {permissionMatrix[role.id][pIndex] ? (
                           <div className="flex justify-center">
-                            <div className="w-6 h-6 rounded-full bg-success/15 flex items-center justify-center">
+                            <div data-testid={`permission-check-${role.id}-${pIndex}`} className="w-6 h-6 rounded-full bg-success/15 flex items-center justify-center">
                               <Check className="w-4 h-4 text-success" />
                             </div>
                           </div>
                         ) : (
                           <div className="flex justify-center">
-                            <div className="w-6 h-6 rounded-full bg-muted flex items-center justify-center">
+                            <div data-testid={`permission-x-${role.id}-${pIndex}`} className="w-6 h-6 rounded-full bg-muted flex items-center justify-center">
                               <X className="w-4 h-4 text-muted-foreground" />
                             </div>
                           </div>
@@ -184,26 +184,26 @@ const RolesPage = () => {
       </Card>
 
       {/* Role Descriptions */}
-      <div className="grid lg:grid-cols-2 gap-6 mt-8">
+      <div data-testid="roles-descriptions" className="grid lg:grid-cols-2 gap-6 mt-8">
         {roles.map((role) => {
           const Icon = role.icon;
           const rolePermissions = permissions.filter((_, i) => permissionMatrix[role.id][i]);
           return (
-            <Card key={role.id} className="border-border/50">
+            <Card key={role.id} data-testid={`role-details-${role.id}`} className="border-border/50">
               <CardHeader>
-                <CardTitle className="flex items-center gap-3">
+                <CardTitle data-testid={`role-details-title-${role.id}`} className="flex items-center gap-3">
                   <div className={`w-10 h-10 rounded-lg ${colorClasses[role.color]} flex items-center justify-center`}>
                     <Icon className="w-5 h-5" />
                   </div>
                   {role.name}
                 </CardTitle>
-                <CardDescription>{role.description}</CardDescription>
+                <CardDescription data-testid={`role-details-desc-${role.id}`}>{role.description}</CardDescription>
               </CardHeader>
               <CardContent>
                 <h4 className="text-sm font-medium text-foreground mb-3">Permissions:</h4>
-                <div className="flex flex-wrap gap-2">
+                <div data-testid={`role-permissions-${role.id}`} className="flex flex-wrap gap-2">
                   {rolePermissions.map((perm) => (
-                    <Badge key={perm.name} variant="secondary" className="gap-1">
+                    <Badge key={perm.name} data-testid={`role-permission-badge-${role.id}-${perm.name}`} variant="secondary" className="gap-1">
                       <perm.icon className="w-3 h-3" />
                       {perm.name}
                     </Badge>

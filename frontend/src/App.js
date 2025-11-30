@@ -29,6 +29,7 @@ import WorkspacesPage from './pages/admin/WorkspacesPage';
 import RolesPage from './pages/admin/RolesPage';
 import LogsPage from './pages/admin/LogsPage';
 import BillingPage from './pages/admin/BillingPage';
+import AdminToolsDemoPage from './pages/admin/AdminToolsDemoPage';
 
 // Error Pages
 import NotFoundPage from './pages/NotFoundPage';
@@ -211,6 +212,14 @@ const AppRoutes = () => {
         element={
           <AdminRoute>
             <BillingPage />
+          </AdminRoute>
+        }
+      />
+      <Route
+        path="/admin/tools"
+        element={
+          <AdminRoute>
+            <AdminToolsDemoPage />
           </AdminRoute>
         }
       />

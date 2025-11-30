@@ -123,36 +123,36 @@ const WorkspacesPage = () => {
       </div>
 
       {/* Stats Overview */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-        <Card className="border-border/50">
+      <div data-testid="workspace-stats" className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+        <Card data-testid="stat-active-workspaces" className="border-border/50">
           <CardContent className="p-4 flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
               <Building className="w-5 h-5 text-primary" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-foreground">{activeWorkspaces}</p>
+              <p data-testid="stat-active-value" className="text-2xl font-bold text-foreground">{activeWorkspaces}</p>
               <p className="text-xs text-muted-foreground">Active Workspaces</p>
             </div>
           </CardContent>
         </Card>
-        <Card className="border-border/50">
+        <Card data-testid="stat-total-users" className="border-border/50">
           <CardContent className="p-4 flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center">
               <Users className="w-5 h-5 text-accent" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-foreground">{totalUsers}</p>
+              <p data-testid="stat-users-value" className="text-2xl font-bold text-foreground">{totalUsers}</p>
               <p className="text-xs text-muted-foreground">Total Users</p>
             </div>
           </CardContent>
         </Card>
-        <Card className="border-border/50">
+        <Card data-testid="stat-total-devices" className="border-border/50">
           <CardContent className="p-4 flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-success/10 flex items-center justify-center">
               <HardDrive className="w-5 h-5 text-success" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-foreground">{totalDevices}</p>
+              <p data-testid="stat-devices-value" className="text-2xl font-bold text-foreground">{totalDevices}</p>
               <p className="text-xs text-muted-foreground">Total Devices</p>
             </div>
           </CardContent>
@@ -160,7 +160,7 @@ const WorkspacesPage = () => {
       </div>
 
       {/* Actions Bar */}
-      <div className="flex flex-col sm:flex-row gap-4 mb-6">
+      <div data-testid="workspace-actions" className="flex flex-col sm:flex-row gap-4 mb-6">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           <Input
@@ -178,9 +178,9 @@ const WorkspacesPage = () => {
               Add Workspace
             </Button>
           </DialogTrigger>
-          <DialogContent>
+          <DialogContent data-testid="workspace-create-dialog">
             <DialogHeader>
-              <DialogTitle>Create New Workspace</DialogTitle>
+              <DialogTitle data-testid="workspace-dialog-title">Create New Workspace</DialogTitle>
               <DialogDescription>
                 Set up a new workspace for your organization or partner
               </DialogDescription>
@@ -188,11 +188,11 @@ const WorkspacesPage = () => {
             <div className="space-y-4 py-4">
               <div className="space-y-2">
                 <Label htmlFor="ws-name">Workspace Name</Label>
-                <Input id="ws-name" placeholder="e.g., Berlin Branch" />
+                <Input data-testid="workspace-name-input" id="ws-name" placeholder="e.g., Berlin Branch" />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="ws-plan">Plan</Label>
-                <select id="ws-plan" className="w-full h-10 px-3 rounded-md border border-input bg-background">
+                <select data-testid="workspace-plan-select" id="ws-plan" className="w-full h-10 px-3 rounded-md border border-input bg-background">
                   <option value="starter">Starter</option>
                   <option value="pro">Pro</option>
                   <option value="enterprise">Enterprise</option>
@@ -200,21 +200,21 @@ const WorkspacesPage = () => {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="ws-admin">Admin Email</Label>
-                <Input id="ws-admin" type="email" placeholder="admin@company.com" />
+                <Input data-testid="workspace-admin-input" id="ws-admin" type="email" placeholder="admin@company.com" />
               </div>
             </div>
             <DialogFooter>
-              <Button variant="outline" onClick={() => setDialogOpen(false)}>
+              <Button variant="outline" data-testid="workspace-cancel-btn" onClick={() => setDialogOpen(false)}>
                 {t.common.cancel}
               </Button>
-              <Button onClick={() => setDialogOpen(false)}>Create Workspace</Button>
+              <Button data-testid="workspace-create-submit-btn" onClick={() => setDialogOpen(false)}>Create Workspace</Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
       </div>
 
       {/* Workspaces Table */}
-      <Card className="border-border/50">
+      <Card data-testid="workspace-table-card" className="border-border/50">
         <CardContent className="p-0">
           <Table>
             <TableHeader>
@@ -228,10 +228,10 @@ const WorkspacesPage = () => {
                 <TableHead className="w-12">{t.common.actions}</TableHead>
               </TableRow>
             </TableHeader>
-            <TableBody>
+            <TableBody data-testid="workspace-table-body">
               {filteredWorkspaces.map((workspace) => (
                 <TableRow key={workspace.id} data-testid={`workspace-row-${workspace.id}`}>
-                  <TableCell>
+                  <TableCell data-testid={`workspace-cell-name-${workspace.id}`}>
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                         <Building className="w-5 h-5 text-primary" />
@@ -239,49 +239,49 @@ const WorkspacesPage = () => {
                       <span className="font-medium">{workspace.name}</span>
                     </div>
                   </TableCell>
-                  <TableCell>
+                  <TableCell data-testid={`workspace-cell-plan-${workspace.id}`}>
                     <Badge variant={planConfig[workspace.plan]?.variant || 'secondary'}>
                       {workspace.plan}
                     </Badge>
                   </TableCell>
-                  <TableCell>
+                  <TableCell data-testid={`workspace-cell-users-${workspace.id}`}>
                     <div className="flex items-center gap-1">
                       <Users className="w-4 h-4 text-muted-foreground" />
                       {workspace.users}
                     </div>
                   </TableCell>
-                  <TableCell>
+                  <TableCell data-testid={`workspace-cell-devices-${workspace.id}`}>
                     <div className="flex items-center gap-1">
                       <HardDrive className="w-4 h-4 text-muted-foreground" />
                       {workspace.devices}
                     </div>
                   </TableCell>
-                  <TableCell>
+                  <TableCell data-testid={`workspace-cell-status-${workspace.id}`}>
                     <Badge variant={workspace.status === 'active' ? 'success' : 'secondary'}>
                       {workspace.status === 'active' ? 'Active' : 'Inactive'}
                     </Badge>
                   </TableCell>
-                  <TableCell className="text-muted-foreground text-sm">
+                  <TableCell data-testid={`workspace-cell-date-${workspace.id}`} className="text-muted-foreground text-sm">
                     {new Date(workspace.createdAt).toLocaleDateString()}
                   </TableCell>
-                  <TableCell>
+                  <TableCell data-testid={`workspace-cell-actions-${workspace.id}`}>
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="icon">
+                        <Button variant="ghost" size="icon" data-testid={`workspace-menu-trigger-${workspace.id}`}>
                           <MoreVertical className="w-4 h-4" />
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
-                        <DropdownMenuItem>
+                        <DropdownMenuItem data-testid={`workspace-menu-configure-${workspace.id}`}>
                           <Settings className="w-4 h-4 mr-2" />
                           Configure
                         </DropdownMenuItem>
-                        <DropdownMenuItem>
+                        <DropdownMenuItem data-testid={`workspace-menu-edit-${workspace.id}`}>
                           <Edit className="w-4 h-4 mr-2" />
                           {t.common.edit}
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem className="text-destructive">
+                        <DropdownMenuItem data-testid={`workspace-menu-delete-${workspace.id}`} className="text-destructive">
                           <Trash2 className="w-4 h-4 mr-2" />
                           {t.common.delete}
                         </DropdownMenuItem>

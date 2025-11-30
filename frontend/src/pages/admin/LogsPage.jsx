@@ -182,18 +182,18 @@ const LogsPage = () => {
       </div>
 
       {/* Stats Overview */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+      <div data-testid="logs-stats" className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         {Object.entries(levelConfig).map(([key, config]) => {
           const Icon = config.icon;
           const count = logs.filter((l) => l.level === key).length;
           return (
-            <Card key={key} className="border-border/50">
+            <Card key={key} data-testid={`logs-stat-${key}`} className="border-border/50">
               <CardContent className="p-4 flex items-center gap-3">
                 <div className={`w-10 h-10 rounded-lg bg-${config.variant === 'info' ? 'primary' : config.variant}/10 flex items-center justify-center`}>
                   <Icon className={`w-5 h-5 text-${config.variant === 'info' ? 'primary' : config.variant}`} />
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-foreground">{count}</p>
+                  <p data-testid={`logs-stat-count-${key}`} className="text-2xl font-bold text-foreground">{count}</p>
                   <p className="text-xs text-muted-foreground">{config.label}</p>
                 </div>
               </CardContent>
@@ -203,7 +203,7 @@ const LogsPage = () => {
       </div>
 
       {/* Filters */}
-      <div className="flex flex-col sm:flex-row gap-4 mb-6">
+      <div data-testid="logs-filters" className="flex flex-col sm:flex-row gap-4 mb-6">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           <Input
@@ -214,8 +214,8 @@ const LogsPage = () => {
             className="pl-10"
           />
         </div>
-        <Select value={filterType} onValueChange={setFilterType}>
-          <SelectTrigger className="w-[150px]">
+        <Select data-testid="logs-type-filter" value={filterType} onValueChange={setFilterType}>
+          <SelectTrigger className="w-[150px]" data-testid="logs-type-trigger">
             <SelectValue placeholder="Type" />
           </SelectTrigger>
           <SelectContent>
@@ -226,8 +226,8 @@ const LogsPage = () => {
             <SelectItem value="system">System</SelectItem>
           </SelectContent>
         </Select>
-        <Select value={filterLevel} onValueChange={setFilterLevel}>
-          <SelectTrigger className="w-[150px]">
+        <Select data-testid="logs-level-filter" value={filterLevel} onValueChange={setFilterLevel}>
+          <SelectTrigger className="w-[150px]" data-testid="logs-level-trigger">
             <SelectValue placeholder="Level" />
           </SelectTrigger>
           <SelectContent>
@@ -238,21 +238,21 @@ const LogsPage = () => {
             <SelectItem value="error">Error</SelectItem>
           </SelectContent>
         </Select>
-        <Button variant="outline">
+        <Button data-testid="logs-refresh-btn" variant="outline">
           <RefreshCw className="w-4 h-4 mr-2" />
           Refresh
         </Button>
-        <Button variant="outline">
+        <Button data-testid="logs-export-btn" variant="outline">
           <Download className="w-4 h-4 mr-2" />
           {t.common.export}
         </Button>
       </div>
 
       {/* Logs Table */}
-      <Card className="border-border/50">
+      <Card data-testid="logs-table-card" className="border-border/50">
         <CardContent className="p-0">
-          <Table>
-            <TableHeader>
+          <Table data-testid="logs-table">
+            <TableHeader data-testid="logs-table-header">
               <TableRow>
                 <TableHead className="w-[160px]">Timestamp</TableHead>
                 <TableHead>Type</TableHead>
@@ -263,7 +263,7 @@ const LogsPage = () => {
                 <TableHead>Workspace</TableHead>
               </TableRow>
             </TableHeader>
-            <TableBody>
+            <TableBody data-testid="logs-table-body">
               {filteredLogs.map((log) => {
                 const type = typeConfig[log.type];
                 const level = levelConfig[log.level];
@@ -271,30 +271,30 @@ const LogsPage = () => {
                 const LevelIcon = level.icon;
                 return (
                   <TableRow key={log.id} data-testid={`log-row-${log.id}`}>
-                    <TableCell className="font-mono text-xs text-muted-foreground">
+                    <TableCell data-testid={`log-timestamp-${log.id}`} className="font-mono text-xs text-muted-foreground">
                       <div className="flex items-center gap-1">
                         <Clock className="w-3 h-3" />
                         {log.timestamp}
                       </div>
                     </TableCell>
-                    <TableCell>
+                    <TableCell data-testid={`log-type-${log.id}`}>
                       <Badge variant="secondary" className="gap-1">
                         <TypeIcon className="w-3 h-3" />
                         {type.label}
                       </Badge>
                     </TableCell>
-                    <TableCell>
+                    <TableCell data-testid={`log-level-${log.id}`}>
                       <Badge variant={level.variant} className="gap-1">
                         <LevelIcon className="w-3 h-3" />
                         {level.label}
                       </Badge>
                     </TableCell>
-                    <TableCell className="text-sm">{log.user}</TableCell>
-                    <TableCell className="font-medium">{log.action}</TableCell>
-                    <TableCell className="text-sm text-muted-foreground max-w-[300px] truncate">
+                    <TableCell data-testid={`log-user-${log.id}`} className="text-sm">{log.user}</TableCell>
+                    <TableCell data-testid={`log-action-${log.id}`} className="font-medium">{log.action}</TableCell>
+                    <TableCell data-testid={`log-details-${log.id}`} className="text-sm text-muted-foreground max-w-[300px] truncate">
                       {log.details}
                     </TableCell>
-                    <TableCell>
+                    <TableCell data-testid={`log-workspace-${log.id}`}>
                       <Badge variant="outline">{log.workspace}</Badge>
                     </TableCell>
                   </TableRow>

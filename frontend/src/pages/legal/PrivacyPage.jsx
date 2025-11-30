@@ -11,23 +11,23 @@ const PrivacyPage = () => {
   return (
     <PublicLayout>
       {/* Hero */}
-      <section className="py-20 lg:py-28 gradient-hero">
+      <section data-testid="privacy-hero" className="py-20 lg:py-28 gradient-hero">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <Badge variant="accent" className="mb-6">
+          <Badge data-testid="privacy-badge" variant="accent" className="mb-6">
             <Lock className="w-3 h-3 mr-1" />
             {t.nav.privacy}
           </Badge>
-          <h1 className="text-4xl sm:text-5xl font-display font-bold text-foreground mb-6">
+          <h1 data-testid="privacy-title" className="text-4xl sm:text-5xl font-display font-bold text-foreground mb-6">
             {t.privacy.title}
           </h1>
         </div>
       </section>
 
       {/* Content */}
-      <section className="py-20 lg:py-28">
+      <section data-testid="privacy-content" className="py-20 lg:py-28">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="prose prose-slate max-w-none">
-            <Card className="border-border/50 mb-8">
+            <Card data-testid="privacy-intro" className="border-border/50 mb-8">
               <CardContent className="p-6">
                 <p className="text-muted-foreground leading-relaxed">
                   {t.privacy.intro}
@@ -35,7 +35,7 @@ const PrivacyPage = () => {
               </CardContent>
             </Card>
 
-            <Card className="border-border/50 mb-8">
+            <Card data-testid="privacy-data-processing" className="border-border/50 mb-8">
               <CardHeader>
                 <CardTitle className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
@@ -51,7 +51,7 @@ const PrivacyPage = () => {
               </CardContent>
             </Card>
 
-            <Card className="border-border/50">
+            <Card data-testid="privacy-gdpr" className="border-border/50">
               <CardHeader>
                 <CardTitle className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-success/10 flex items-center justify-center">
